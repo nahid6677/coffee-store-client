@@ -1,18 +1,47 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
     const handleAddCoffee = e => {
         e.preventDefault();
         const form = e.target;
-        const name =  form.name.value;
-        const quantity =  form.quantity.value;
-        const supplier =  form.supplier.value;
-        const teste =  form.teste.value;
-        const catagory =  form.catagory.value;
-        const details =  form.details.value;
-        const photo =  form.photo.value;
-        const newCoffee = {name,quantity, supplier,teste,catagory,details,photo}
+        const name = form.name.value;
+        const quantity = form.quantity.value;
+        const supplier = form.supplier.value;
+        const teste = form.teste.value;
+        const catagory = form.catagory.value;
+        const details = form.details.value;
+        const photo = form.photo.value;
+        const newCoffee = { name, quantity, supplier, teste, catagory, details, photo }
+        function hasEmptyValues(obj) {
+            return Object.values(obj).some(value => value === "");
+        }
+        if (hasEmptyValues(newCoffee)) {
+            alert("Some values are empty.")
+            return;
+        }
+
         console.log(newCoffee)
+        // send data to the server
+        fetch(`http://localhost:5000/coffee`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newCoffee)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Coffee added Successfull',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            })
     }
     return (
         <div>
@@ -34,7 +63,7 @@ const AddCoffee = () => {
                     <div className="flex gap-3 justify-center">
                         <input
                             type="text"
-                            
+
                             name='supplier'
                             placeholder="Enter Coffee Supplier "
                             className="input input-bordered input-primary w-full max-w-xs" />

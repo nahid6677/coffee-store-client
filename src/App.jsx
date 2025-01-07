@@ -14,7 +14,7 @@ function App() {
       <h1 className='text-6xl'>Coffee Collection {allCoffee.length}</h1>
       <div className="grid md:grid-cols-2 my-5 gap-4">
         {
-          allCoffee.map(coffee => <CoffeeCard coffee={coffee} key={coffee._id}></CoffeeCard>)
+          allCoffee.map(coffee => <CoffeeCard setCoffee={setCoffee} allCoffee={allCoffee} coffee={coffee} key={coffee._id}></CoffeeCard>)
         }
       </div>
     </div>

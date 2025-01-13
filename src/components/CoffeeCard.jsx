@@ -45,7 +45,7 @@ const CoffeeCard = ({ coffee,setCoffee,allCoffee }) => {
         <div className="card card-side bg-base-300 shadow-xl">
             <figure>
                 <img
-                    className='w-full h-32'
+                    className='w-full rounded-md h-32'
                     src={photo}
                     alt="Movie" />
             </figure>
